@@ -2,11 +2,16 @@ import express from 'express'
 import dotenv from 'dotenv'
 dotenv.config()
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
-const port = process.env.PORT || 3500
-//
 import userRoutes from './routes/userRoutes.js'
+import connectDB from './config/db.js'
+import mongoose from 'mongoose'
 
+connectDB()
+
+const port = process.env.PORT || 3500
 const app = express()
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 // use my routes
 app.use('/api/users', userRoutes)
