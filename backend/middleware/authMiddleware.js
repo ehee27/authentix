@@ -9,8 +9,10 @@ import asyncHandler from 'express-async-handler'
 
 const protect = asyncHandler(async (req, res, next) => {
   let token
+  // CHECK FOR COOKIE w the JWT
   token = req.cookies.jwt
   if (token) {
+    // DECODE (verify method) IT TO CHECK FOR userId
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET)
       req.user = await User.findById(decoded.userId).select('-password')
