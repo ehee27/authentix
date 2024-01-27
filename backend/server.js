@@ -4,7 +4,8 @@ dotenv.config()
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import userRoutes from './routes/userRoutes.js'
 import connectDB from './config/db.js'
-import mongoose from 'mongoose'
+// import mongoose from 'mongoose'
+import cookieParser from 'cookie-parser'
 
 connectDB()
 
@@ -12,6 +13,7 @@ const port = process.env.PORT || 3500
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 // use my routes
 app.use('/api/users', userRoutes)
